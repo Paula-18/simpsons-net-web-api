@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 using simpsons_net_web_api.Modules;
 using simpsons_net_web_api.Dependencies;
 
 namespace simpsons_net_web_api.Controllers
 {
-    [Route("[controller]")]
-    [ApiControler]
-    public class CharacterController : ICharacter
+    [Route("simpsons/[controller]")]
+    [ApiController]
+    public class CharacterController : Character
     {
         List<Character> listOfCharacter => new List<Character>
         {
