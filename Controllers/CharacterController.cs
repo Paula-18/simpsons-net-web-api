@@ -8,6 +8,7 @@ namespace simpsons_net_web_api.Controllers
 {
     [Route("simpsons/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class CharacterController : Character
     {
         List<Character> listOfCharacter => new List<Character>
