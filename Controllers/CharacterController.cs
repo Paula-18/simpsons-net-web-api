@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using simpsons_net_web_api.Modules;
 using simpsons_net_web_api.Dependencies;
+using System.Data.SqlClient;
+
 
 namespace simpsons_net_web_api.Controllers
 {
@@ -12,6 +14,7 @@ namespace simpsons_net_web_api.Controllers
     public class CharacterController : Character
     {
         List<Character> listOfCharacter => new List<Character>
+
         {
             new Character
             {
@@ -69,6 +72,9 @@ namespace simpsons_net_web_api.Controllers
 
         };
 
+        string connectionString = @"data source=LAPTOP-DD2A6LRV\SQLEXPRESS; initial catalog=db_simpsons; user id=simpsons; password=1234";
+
+
         [HttpGet("{id}")]
         public Character GetCharacter(int id)
         {
@@ -77,9 +83,26 @@ namespace simpsons_net_web_api.Controllers
 
         [HttpGet]
 
+
         public List<Character> GetCharacterList(int id)
         {
-            return listOfCharacter;
+            List<Character> characters = new List<Character>();
+        
+            SqlConnection conn = new SqlConnection(connectionString);
+            SqlCommand cmd = new SqlCommand("select * from tbl_character", conn);
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while(reader.Read())
+            {
+                Character character = new Character
+                {
+                    Id = reader.GetInt64(reader.GetOrdinal("id")),
+                    FirstName = reader.GetString(reader.GetOrdinal("firstName"))
+                };
+                characters.Add(character);
+            }
+            conn.Close();
+            return characters;
         }
     }
 }
