@@ -24,7 +24,7 @@ namespace simpsons_net_web_api.Controllers
                 BirthDate = "12 de mayo",
                 Age = 36,
                 Description ="Esposo de Marge, Padre de la familia",
-                Photo = "https://vignette.wikia.nocookie.net/lossimpson/images/b/bd/Homer_Simpson.png/revision/latest?cb=20100522180809&path-prefix=es",
+                Photo = "",
             },
 
             new Character{
@@ -34,7 +34,7 @@ namespace simpsons_net_web_api.Controllers
                 BirthDate = "18 de mayo",
                 Age = 34, 
                 Description = "Esposa de Homero, Madre de Bart, Lisa y Maggie",
-                Photo = "https://vignette.wikia.nocookie.net/lossimpson/images/0/0b/Marge_Simpson.png/revision/latest?cb=20090415001251&path-prefix=es"         
+                Photo = ""         
             },
 
             new Character
@@ -45,7 +45,7 @@ namespace simpsons_net_web_api.Controllers
                 BirthDate = "23 de febrero",
                 Age = 10,
                 Description = "Hijo mayor de la familia Simpson, hermano de Lisa y Maggie",
-                Photo = "https://upload.wikimedia.org/wikipedia/en/a/aa/Bart_Simpson_200px.png",
+                Photo = "",
             },
 
             new Character
@@ -56,7 +56,7 @@ namespace simpsons_net_web_api.Controllers
                 BirthDate = "11 de mayo",
                 Age = 8,
                 Description = "Hija mayor de la familia Simpson, hermana menor de Bart y hemana mayor de Maggie",
-                Photo = "https://upload.wikimedia.org/wikipedia/en/e/ec/Lisa_Simpson.png",
+                Photo = "",
             },
 
             new Character
@@ -67,7 +67,7 @@ namespace simpsons_net_web_api.Controllers
                 BirthDate = "12 de enero",
                 Age = 1,
                 Description = "Hija menor de la famila Simpson, hermana menor de Bart y Lisa",
-                Photo = "https://upload.wikimedia.org/wikipedia/en/9/9d/Maggie_Simpson.png",
+                Photo = "",
             },
 
         };
@@ -97,12 +97,18 @@ namespace simpsons_net_web_api.Controllers
                 Character character = new Character
                 {
                     Id = reader.GetInt64(reader.GetOrdinal("id")),
-                    FirstName = reader.GetString(reader.GetOrdinal("firstName"))
+                    FirstName = reader.GetString(reader.GetOrdinal("firstName")),
+                    SecondName = reader.GetString(reader.GetOrdinal("secondName")),
+                    LastName = reader.GetString(reader.GetOrdinal("lastName")),
+                    Age = reader.GetInt32(reader.GetOrdinal("age")),
+                    BirthDate = reader.GetString(reader.GetOrdinal("birthDate")),
+                    Description = reader.GetString(reader.GetOrdinal("descp"))
                 };
                 characters.Add(character);
             }
             conn.Close();
             return characters;
         }
+
     }
 }
